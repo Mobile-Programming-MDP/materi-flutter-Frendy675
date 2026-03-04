@@ -1,102 +1,82 @@
 [
-  {
-    "nama": "Alice Smith",
-    "umur": 25,
-    "alamat": {
-      "jalan": "Jl. Merdeka No.10",
-      "kota": "Jakarta",
-      "provinsi": "DKI Jakarta"
+    {
+        "nama": "Budi Setiawan",
+        "umur": 30,
+        "alamat": {
+            "jalan": "Jl. Pahlawan",
+            "kota": "Surabaya",
+            "provinsi": "Jawa Timur"
+        },
+        "hobi": ["membaca", "bersepeda"]
     },
-    "hobi": ["berenang", "melukis"]
-  },
-  {
-    "nama": "Budi Santoso",
-    "umur": 40,
-    "alamat": {
-      "jalan": "Jl. Sudirman No.45",
-      "kota": "Bandung",
-      "provinsi": "Jawa Barat"
+    {
+        "nama": "Ferdinan Lubis",
+        "umur": 25,
+        "alamat": {
+            "jalan": "Jl. Cipto",
+            "kota": "Jakarta",
+            "provinsi": "DKI Jakarta"
+        },
+        "hobi": ["menulis", "makan"]
     },
-    "hobi": ["mendaki", "memancing"]
-  },
-  {
-    "nama": "Citra Dewi",
-    "umur": 33,
-    "alamat": {
-      "jalan": "Jl. Diponegoro No.77",
-      "kota": "Yogyakarta",
-      "provinsi": "DI Yogyakarta"
+    {
+        "nama": "Siti Nurhaliza",
+        "umur": 28,
+        "alamat": {
+            "jalan": "Jl. Ahmad Yani",
+            "kota": "Bandung",
+            "provinsi": "Jawa Barat"
+        },
+        "hobi": ["musik", "fotografi", "traveling"]
     },
-    "hobi": ["menulis", "berkebun"]
-  },
-  {
-    "nama": "Dedi Kurniawan",
-    "umur": 28,
-    "alamat": {
-      "jalan": "Jl. Gajah Mada No.5",
-      "kota": "Medan",
-      "provinsi": "Sumatera Utara"
+    {
+        "nama": "Rendra Wijaya",
+        "umur": 32,
+        "alamat": {
+            "jalan": "Jl. Sudirman",
+            "kota": "Medan",
+            "provinsi": "Sumatera Utara"
+        },
+        "hobi": ["olahraga", "coding"]
     },
-    "hobi": ["bersepeda", "memasak"]
-  },
-  {
-    "nama": "Erika Widjaja",
-    "umur": 22,
-    "alamat": {
-      "jalan": "Jl. Panglima Polim No.12",
-      "kota": "Jakarta",
-      "provinsi": "DKI Jakarta"
+    {
+        "nama": "Dewi Lestari",
+        "umur": 26,
+        "alamat": {
+            "jalan": "Jl. Gatot Subroto",
+            "kota": "Yogyakarta",
+            "provinsi": "DI Yogyakarta"
+        },
+        "hobi": ["melukis", "dancing"]
     },
-    "hobi": ["menari", "membaca"]
-  },
-  {
-    "nama": "Fajar Pratama",
-    "umur": 36,
-    "alamat": {
-      "jalan": "Jl. Teuku Umar No.33",
-      "kota": "Denpasar",
-      "provinsi": "Bali"
+    {
+        "nama": "Ahmad Hidayat",
+        "umur": 29,
+        "alamat": {
+            "jalan": "Jl. Merdeka",
+            "kota": "Bandung",
+            "provinsi": "Jawa Barat"
+        },
+        "hobi": ["gaming", "membaca novel"]
     },
-    "hobi": ["surfing", "bermain gitar"]
-  },
-  {
-    "nama": "Gita Lestari",
-    "umur": 29,
-    "alamat": {
-      "jalan": "Jl. Sisingamangaraja No.9",
-      "kota": "Palembang",
-      "provinsi": "Sumatera Selatan"
+    {
+        "nama": "Lisa Manobal",
+        "umur": 27,
+        "alamat": {
+            "jalan": "Jl. Diponegoro",
+            "kota": "Semarang",
+            "provinsi": "Jawa Tengah"
+        },
+        "hobi": ["bernyanyi", "cooking", "gardening"]
     },
-    "hobi": ["menyanyi", "memasak"]
-  },
-  {
-    "nama": "Hendra Saputra",
-    "umur": 31,
-    "alamat": {
-      "jalan": "Jl. Ahmad Yani No.20",
-      "kota": "Semarang",
-      "provinsi": "Jawa Tengah"
-    },
-    "hobi": ["berlari", "membaca"]
-  },
-  {
-    "nama": "Indah Permata",
-    "umur": 27,
-    "alamat": {
-      "jalan": "Jl. Raden Saleh No.14",
-      "kota": "Surabaya",
-      "provinsi": "Jawa Timur"
-    },
-    "hobi": ["melukis", "berkebun"]
-  },
-  {
-    "nama": "Joko Susilo",
-    "umur": 35,
-    "alamat": {
-      "jalan": "Jl. Sultan Hasanuddin No.8",
-      "kota": "Makassar",
-      "provinsi": "Sulawesi Selatan"
-    },
-    "hobi": ["memancing", "bersepeda"]
-  }
+    {
+        "nama": "Hendra Gunawan",
+        "umur": 31,
+        "alamat": {
+            "jalan": "Jl. Veteran",
+            "kota": "Malang",
+            "provinsi": "Jawa Timur"
+        },
+        "hobi": ["hiking", "fotografi"]
+    }
 ]
