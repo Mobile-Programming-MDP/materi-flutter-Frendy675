@@ -5,14 +5,29 @@ import 'package:pilem/services/api_services.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
+
   @override
-  SearchScreenState createState() => SearchScreenState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class SearchScreenState extends State<SearchScreen> {
-  final ApiService _apiService = ApiService();
+class _SearchScreenState extends State<SearchScreen> {
+  final ApiServices apiServices = ApiServices();
   final TextEditingController _searchController = TextEditingController();
   List<Movie> _searchResults = [];
+
+  void _searchMovies() async {
+    if (_searchController.text.isEmpty) {
+      setState(() {
+        _searchResults = [];
+      });
+      return;
+    }
+    final List<Map<String, dynamic>> searchData = await apiServices.searchMovies(_searchController.text);
+    setState(() {
+      _searchResults = searchData.map((e) => Movie.fromJson(e)).toList();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -21,29 +36,15 @@ class SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
-    _searchController.dispose();
+    _searchController.removeListener(_searchMovies);
     super.dispose();
   }
-
-  void _searchMovies() async {
-    if (_searchController.text.isEmpty) {
-      setState(() {
-        _searchResults.clear();
-      });
-      return;
-    }
-    final List<Map<String, dynamic>> searchData =
-        await _apiService.searchMovies(_searchController.text);
-    setState(() {
-      _searchResults = searchData.map((e) => Movie.fromJson(e)).toList();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Search'),
+        backgroundColor: Colors.deepPurpleAccent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
