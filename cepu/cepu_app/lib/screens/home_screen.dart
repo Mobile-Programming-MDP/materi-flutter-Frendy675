@@ -1,6 +1,6 @@
-import 'package:cepu_app/screens/sign_in_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cepu_app/screens/sign_in_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Future<void> _signOut(BuildContext context) async {
+    // Implement sign out logic here
     await FirebaseAuth.instance.signOut();
     Navigator.pushAndRemoveUntil(
       context,
@@ -18,46 +19,36 @@ class _HomeScreenState extends State<HomeScreen> {
       (route) => false,
     );
   }
-
-  String? _idToken = "";
-  String? _uid = "";
-  String? _email = "";
-
-  @override
-  void initState() {
-    super.initState();
-    getFirebaseAuthUser();
-  }
-
+  String? _idToken;
+  String? _uid;
+  String? _email;
   Future<void> getFirebaseAuthUser() async {
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       _uid = user.uid;
       _email = user.email;
       await user
-          .getIdToken(true)
-          .then(
-            (v) => {
-              setState(() {
-                _idToken = v;
-              }),
-            },
-          );
+      .getIdToken(true)
+      .then(
+        (v) => {
+          setState(() {
+        _idToken = v;
+      }),
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home Screen"),
-        backgroundColor: Colors.blueAccent,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => _signOut(context),
-          ),
-        ],
+      appBar: AppBar(title: const Text("Home Screen"),
+      backgroundColor: Colors.green,
+      actions: [
+        IconButton(
+          onPressed: () => _signOut(context),
+          icon: const Icon(Icons.logout),
+        ),
+      ]
       ),
       body: Center(
         child: Column(
