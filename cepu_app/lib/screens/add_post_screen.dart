@@ -21,6 +21,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
   String? _base64Image;
   String? _latitude;
   String? _longitude;
+  String? _category;
+  bool _isSubmitting = false;
+  bool _isGettingLocation = false;
   List<String> get categories {
     return [
       'Jalan Rusak',
@@ -30,8 +33,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
       'Tidak Pakai Helm'
     ];
   }
-  String? _category;
-
   //1.Fungsi pick, compress and convert Image
   Future<void> pickImageAndConvert() async {
     final ImagePicker picker = ImagePicker();

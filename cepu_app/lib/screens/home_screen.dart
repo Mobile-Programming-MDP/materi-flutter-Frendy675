@@ -63,18 +63,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  // void testSetUser() async {
-  //   User? user = FirebaseAuth.instance.currentUser;
-
-  //   if (user != null) {
-  //     //await user.updateDisplayName("Nur Rachmat");
-  //     await user.updateProfile(
-  //       displayName: "Nur Rachmat",
-  //       photoURL:
-  //           "https://www.harapanrakyat.com/wp-content/uploads/2025/07/Kapten-Timnas-Indonesia-Jay-Idzes-Dilirik-5-Klub-Top-Eropa.jpg",
-  //     );
-  //     await user.reload();
-  //   }
-  // }
 }
