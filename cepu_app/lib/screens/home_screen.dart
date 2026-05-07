@@ -1,95 +1,148 @@
+import 'dart:convert';
+
+import 'package:cepu_app/models/post.dart';
+import 'package:cepu_app/services/post_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cepu_app/screens/sign_in_screen.dart';
-import 'package:cepu_app/screens/add_post_screen.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:cepu_app/screens/map_detail_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class DetailScreen extends StatelessWidget {
+  final Post post;
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+  const DetailScreen({super.key, required this.post});
 
-class _HomeScreenState extends State<HomeScreen> {
-  Future<void> _signOut() async {
-    await FirebaseAuth.instance.signOut();
-    if (!mounted) return;
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => SignInScreen()),
-      (route) => false,
+  Future<void> _deletePost(BuildContext context) async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Delete Post'),
+        content: const Text('Are you sure you want to delete this post?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
     );
+    if (confirm == true) {
+      await PostService.deletePost(post);
+      if (context.mounted) Navigator.pop(context);
+    }
   }
 
-  String generateAvatarUrl(String? fullName) {
-    final formattedName = fullName?.trim().replaceAll(' ', '+');
-    return 'https://ui-avatars.com/api/?name=$formattedName&background=random&size=128';
+  void _sharePost() {
+    final text =
+        '${post.category ?? ''}\n${post.description ?? ''}\nPosted by: ${post.userFullName ?? ''}';
+    SharePlus.instance.share(ShareParams(text: text));
   }
-
-  // String? _idToken ="";
-  // String? _uid ="";
-  // String? _email ="";
 
   @override
-  void initState() {
-    super.initState();
-    //getFirebaseAuthUser();
-  }
-  
-  // Future<void> getFirebaseAuthUser() async {
-  //   User? user = FirebaseAuth.instance.currentUser;
-  //   if (user != null) {
-  //     _uid = user.uid;
-  //     _email = user.email;
-  //     await user.getIdToken(true).then(
-  //       (v) => {
-  //         setState(() {
-  //           _idToken = v;
-  //         })
-  //       }
-  //     );
-  //   }
-  // }
-
   Widget build(BuildContext context) {
+    final currentUserId = FirebaseAuth.instance.currentUser?.uid;
+    final isOwner = currentUserId != null && post.userId == currentUserId;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home Screen"),
+        title: Text(post.category ?? 'Post Detail'),
         actions: [
           IconButton(
-            onPressed: () {
-              _signOut();
-            },
-            icon: Icon(Icons.logout),
-            tooltip: "Sign Out",
+            onPressed: _sharePost,
+            icon: const Icon(Icons.share),
+            tooltip: 'Share',
           ),
-        ],
-      ),
-      body: Column(
-        children: [
-          Image.network(
-            generateAvatarUrl(
-              FirebaseAuth.instance.currentUser?.displayName.toString(),
+          if (isOwner)
+            IconButton(
+              onPressed: () => _deletePost(context),
+              icon: const Icon(Icons.delete),
+              tooltip: 'Delete',
+              color: Colors.red,
             ),
-            width: 100,
-            height: 100,
-          ),
-          SizedBox(height: 8.0),
-          Text(
-            FirebaseAuth.instance.currentUser!.displayName!,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 16.0),
-          const Center(child: Text("You Have Been Signed In!")),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const AddPostScreen()),
-          );
-        },
-        child: const Icon(Icons.add),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (post.image != null && post.image!.isNotEmpty)
+              Image.memory(
+                base64Decode(post.image!),
+                width: double.infinity,
+                height: 250,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => const SizedBox(
+                  height: 250,
+                  child: Center(child: Icon(Icons.broken_image, size: 64)),
+                ),
+              ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (post.category != null)
+                    Chip(label: Text(post.category!)),
+                  const SizedBox(height: 8),
+                  Text(
+                    post.description ?? '',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      const Icon(Icons.person, size: 18, color: Colors.grey),
+                      const SizedBox(width: 4),
+                      Text(
+                        post.userFullName ?? 'Unknown',
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                  if (post.latitude != null && post.longitude != null) ...[
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          size: 18,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          '${post.latitude}, ${post.longitude}',
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            if (post.latitude != null && post.longitude != null)
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MapDetailScreen(
+                          lat: double.tryParse(post.latitude.toString()) ?? 0,
+                          lng: double.tryParse(post.longitude.toString()) ?? 0,
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('View on Map'),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
