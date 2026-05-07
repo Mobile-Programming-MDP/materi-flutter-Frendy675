@@ -33,10 +33,7 @@ class DefaultFirebaseOptions {
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -50,23 +47,28 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyABVMqCkAoryjaYWpQjhrzyf6UF_tqPtrk',
-    appId: '1:1076757814194:web:3964b4077df2bb83a222ab',
-    messagingSenderId: '1076757814194',
-    projectId: 'khalbhi-dev',
-    authDomain: 'khalbhi-dev.firebaseapp.com',
-    databaseURL: 'https://khalbhi-dev-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'khalbhi-dev.firebasestorage.app',
-    measurementId: 'G-W8Y1M17NP6',
+    apiKey: 'AIzaSyA9ra2w6q3jHY1ktgn9cubOLAzA0ujTouU',
+    appId: '1:463734669920:web:e97f64982bca8c39acb905',
+    messagingSenderId: '463734669920',
+    projectId: 'cepuapp-4aef',
+    authDomain: 'cepuapp-4aef.firebaseapp.com',
+    storageBucket: 'cepuapp-4aef.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyALbdcTXO-4e8N4-O22YVDypBGFyNycbO4',
-    appId: '1:1076757814194:android:c799cb56a6fd3799a222ab',
-    messagingSenderId: '1076757814194',
-    projectId: 'khalbhi-dev',
-    databaseURL: 'https://khalbhi-dev-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'khalbhi-dev.firebasestorage.app',
+    apiKey: 'AIzaSyAygazllk3OyRiONRjoN7P5uO6Qbpk_Zew',
+    appId: '1:463734669920:android:142d836a2ecc011eacb905',
+    messagingSenderId: '463734669920',
+    projectId: 'cepuapp-4aef',
+    storageBucket: 'cepuapp-4aef.firebasestorage.app',
   );
 
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyA9ra2w6q3jHY1ktgn9cubOLAzA0ujTouU',
+    appId: '1:463734669920:web:1651cd8c0b443cf1acb905',
+    messagingSenderId: '463734669920',
+    projectId: 'cepuapp-4aef',
+    authDomain: 'cepuapp-4aef.firebaseapp.com',
+    storageBucket: 'cepuapp-4aef.firebasestorage.app',
+  );
 }
