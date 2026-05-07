@@ -219,6 +219,28 @@ class _AddPostScreenState extends State<AddPostScreen> {
     }
   }
 
+  //7. fungsi generate description otomatis berdasarkan gambar
+  // panggil fungsi ini setelah gambar dipilih
+  Future<void> _generateDescriptionWithAI()async {
+    if (_base64Image == null) return;
+    setState(() => _isGenerating = true);
+    try {
+      const apiKey = 'AIzaSyD2KmwVaXX3I4UQXCca-yca9CzzyUipZzI';
+      const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:streamGenerateContent?key=$apiKey';
+      final body = jsonEncody({
+        "contents": [
+          {
+            "parts": [
+              {
+                "inLineData": {"mimeType"; "image/jpeg", "data": _base64Image},
+              },
+            ]
+          }
+        ]
+      })
+    }
+  }
+
   @override
   void dispose() {
     _descriptionController.dispose();
